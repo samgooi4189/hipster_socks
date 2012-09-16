@@ -1,0 +1,3 @@
+This contains client.c and server.c from linuxhowto.org's socket examples, and select_server.c from Beej's Guide to networking.
+
+select_client.c is a mismash of the select_server.c and the client.c to be nonblocking.
