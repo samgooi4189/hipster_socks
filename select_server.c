@@ -35,7 +35,7 @@ int main(void)
     struct sockaddr_storage remoteaddr; // client address
     socklen_t addrlen;
 
-    char buf[256];    // buffer for client data
+    char buf[2048];    // buffer for client data
     int nbytes;
 
     char remoteIP[INET6_ADDRSTRLEN];
@@ -141,17 +141,11 @@ int main(void)
                         FD_CLR(i, &master); // remove from master set
                     } else {
                         // we got some data from a client
-                        for(j = 0; j <= fdmax; j++) {
-                            // send to everyone!
-                            if (FD_ISSET(j, &master)) {
-                                // except the listener and ourselves
-                                if (j != listener && j != i) {
-                                    if (send(j, buf, nbytes, 0) == -1) {
-                                        perror("send");
-                                    }
-                                }
-                            }
-                        }
+		       send(i, "<html><body><img src=\"hello.png\"></body></html>", 49, 0);
+			printf("\n--%s%d\n",buf,i);
+			close(i);
+			FD_CLR(i, &master); 
+			sleep(10);
                     }
                 } // END handle data from client
             } // END got new incoming connection
